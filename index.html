@@ -15,12 +15,14 @@
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <script>
 window.ACHIVILY_DEVICE_PAGE = "";
+window.ACHIVILY_LANGUAGE = "";
 (function () {
   var current = window.ACHIVILY_DEVICE_PAGE;
+  var currentLang = window.ACHIVILY_LANGUAGE;
   var path = window.location.pathname.toLowerCase();
   var params = new URLSearchParams(window.location.search);
-  var forced = params.get("view");
-  if (current && (forced === "mobile" || forced === "desktop")) return;
+  var forcedDevice = params.get("view");
+  var forcedLang = params.get("lang");
 
   function chooseDevice() {
     var viewport = Math.min(window.innerWidth || 9999, screen.width || 9999);
@@ -30,21 +32,41 @@ window.ACHIVILY_DEVICE_PAGE = "";
     return narrow || viewport <= 760 || (coarse && viewport <= 1024) || (uaMobile && viewport <= 900) ? "mobile" : "desktop";
   }
 
-  function targetUrl(device) {
-    var file = device === "mobile" ? "mobile.html" : "desktop.html";
+  function chooseLanguage() {
+    if (forcedLang === "zh" || forcedLang === "en") return forcedLang;
+    try {
+      var saved = window.localStorage.getItem("achivily-language");
+      if (saved === "zh" || saved === "en") return saved;
+    } catch (error) {}
+    var languages = navigator.languages || [navigator.language || ""];
+    return languages.some(function (language) { return /^zh/i.test(language); }) ? "zh" : "en";
+  }
+
+  function pageFile(device, language) {
+    return language === "zh" ? device + "-zh.html" : device + ".html";
+  }
+
+  function targetUrl(device, language) {
+    var file = pageFile(device, language);
     return file + window.location.search + window.location.hash;
   }
 
-  var device = !current && (forced === "mobile" || forced === "desktop") ? forced : chooseDevice();
+  var device = forcedDevice === "mobile" || forcedDevice === "desktop" ? forcedDevice : chooseDevice();
+  var language = currentLang || chooseLanguage();
+  if (forcedLang === "zh" || forcedLang === "en") language = forcedLang;
   document.documentElement.dataset.device = device;
+  document.documentElement.dataset.language = language;
+  if (currentLang) {
+    try { window.localStorage.setItem("achivily-language", currentLang); } catch (error) {}
+  }
 
   if (!current) {
-    window.location.replace(targetUrl(device));
+    window.location.replace(targetUrl(device, language));
     return;
   }
 
-  if (current !== device && !path.endsWith("/" + device + ".html")) {
-    window.location.replace(targetUrl(device));
+  if ((current !== device || currentLang !== language) && !path.endsWith("/" + pageFile(device, language))) {
+    window.location.replace(targetUrl(device, language));
   }
 })();
 </script>
@@ -54,7 +76,7 @@ window.ACHIVILY_DEVICE_PAGE = "";
       <main style="font-family: Georgia, 'Times New Roman', serif; padding: 32px;">
         <h1>Achivily Linework.</h1>
         <p>Choose a version:</p>
-        <p><a href="mobile.html">Mobile</a> / <a href="desktop.html">Desktop</a></p>
+        <p><a href="mobile.html">Mobile</a> / <a href="desktop.html">Desktop</a> / <a href="mobile-zh.html">中文</a></p>
       </main>
     </noscript>
   </body>

@@ -11,6 +11,9 @@
   --teal: #8fa7a1;
   --plum: #988897;
   --taupe: #9b8368;
+  --font-latin-serif: Georgia, "Times New Roman", serif;
+  --font-cjk-serif: "Songti SC", "STSong", "SimSun", "Noto Serif CJK SC", serif;
+  --font-cjk-sans: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", sans-serif;
 }
 
 * {
@@ -33,6 +36,10 @@ body {
     var(--paper);
   color: var(--ink);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+html[lang="zh-CN"] body {
+  font-family: var(--font-cjk-sans), var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
 
 body.lightbox-locked {
@@ -94,9 +101,18 @@ img {
 }
 
 .wordmark {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-latin-serif);
   font-size: clamp(1.35rem, 2vw, 2rem);
   line-height: 1;
+}
+
+.topbar-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  min-width: 0;
+  gap: clamp(12px, 2vw, 26px);
 }
 
 .nav-links {
@@ -130,6 +146,34 @@ img {
 
 .nav-links a:hover::after {
   transform: scaleX(1);
+}
+
+.language-switch {
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  border: 1px solid var(--rule);
+  background: rgba(255, 253, 247, 0.64);
+  color: var(--muted);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.68rem;
+}
+
+.language-switch a {
+  min-width: 38px;
+  padding: 5px 8px;
+  text-align: center;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.language-switch a:hover,
+.language-switch a:focus-visible {
+  color: var(--ink);
+}
+
+.language-switch a.is-active {
+  background: var(--ink);
+  color: var(--paper);
 }
 
 .hero {
@@ -172,8 +216,29 @@ h1,
 h2,
 h3 {
   margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-latin-serif);
   font-weight: 400;
+}
+
+html[lang="zh-CN"] h1,
+html[lang="zh-CN"] h2,
+html[lang="zh-CN"] h3 {
+  font-family: var(--font-cjk-serif);
+  font-weight: 400;
+}
+
+html[lang="zh-CN"] .brand-line {
+  font-family: var(--font-latin-serif);
+}
+
+html[lang="zh-CN"] h1 {
+  letter-spacing: 0.01em;
+}
+
+html[lang="zh-CN"] .intro,
+html[lang="zh-CN"] .window-copy p,
+html[lang="zh-CN"] .statement-band p {
+  line-height: 1.88;
 }
 
 h1 {
@@ -218,6 +283,16 @@ h1 span {
 
 .hero-ledger span:nth-child(3) {
   animation-delay: 240ms;
+}
+
+html[lang="zh-CN"] .eyebrow,
+html[lang="zh-CN"] .hero-ledger,
+html[lang="zh-CN"] .tile-companion,
+html[lang="zh-CN"] .window-meta,
+html[lang="zh-CN"] .footer,
+html[lang="zh-CN"] .nav-links,
+html[lang="zh-CN"] .language-switch {
+  font-family: var(--font-geist-mono), "Microsoft YaHei", monospace;
 }
 
 .hero-salon {
@@ -824,11 +899,27 @@ h1 span {
     padding-bottom: 10px;
   }
 
-  .nav-links {
+  .topbar-controls {
+    display: grid;
+    grid-template-columns: 1fr;
     width: 100%;
+    justify-content: start;
+    justify-items: start;
+    gap: 10px 14px;
+  }
+
+  .nav-links {
+    order: 2;
+    width: 100%;
+    flex: none;
     justify-content: flex-start;
     gap: 14px;
     font-size: 0.64rem;
+  }
+
+  .language-switch {
+    order: 1;
+    font-size: 0.62rem;
   }
 
   h1 {
@@ -976,6 +1067,11 @@ h1 span {
 
   .nav-links {
     gap: 12px;
+  }
+
+  .language-switch a {
+    min-width: 34px;
+    padding: 5px 7px;
   }
 
   .hero-ledger {
