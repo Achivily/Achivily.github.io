@@ -592,12 +592,18 @@ h1 {
     rgba(17, 16, 14, 0.72);
   opacity: 0;
   backdrop-filter: blur(0);
+  pointer-events: none;
   transition: opacity 280ms ease, backdrop-filter 280ms ease;
+}
+
+.lightbox[hidden] {
+  display: none;
 }
 
 .lightbox.is-open {
   opacity: 1;
   backdrop-filter: blur(10px);
+  pointer-events: auto;
 }
 
 .lightbox-panel {
