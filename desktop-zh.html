@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="zh-CN" data-device="desktop" data-language="zh">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Achivily | 黑白线稿档案</title>
+    <meta name="description" content="Achivily 的黑白线稿、角色速写与单色艺术插画作品集。">
+    <meta property="og:title" content="Achivily | 黑白线稿档案">
+    <meta property="og:description" content="Achivily 的黑白线稿、角色速写与单色艺术插画作品集。">
+    <meta property="og:image" content="https://achivily.github.io/works/portrait-grid.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Achivily | 黑白线稿档案">
+    <meta name="twitter:description" content="Achivily 的黑白线稿、角色速写与单色艺术插画作品集。">
+    <meta name="twitter:image" content="https://achivily.github.io/works/portrait-grid.jpg">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <script>
+window.ACHIVILY_DEVICE_PAGE = "desktop";
+window.ACHIVILY_LANGUAGE = "zh";
+(function () {
+  var current = window.ACHIVILY_DEVICE_PAGE;
+  var currentLang = window.ACHIVILY_LANGUAGE;
+  var path = window.location.pathname.toLowerCase();
+  var params = new URLSearchParams(window.location.search);
+  var forcedDevice = params.get("view");
+  var forcedLang = params.get("lang");
+
+  function chooseDevice() {
+    var viewport = Math.min(window.innerWidth || 9999, screen.width || 9999);
+    var coarse = window.matchMedia && window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+    var narrow = window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+    var uaMobile = /Android|iPhone|iPod|IEMobile|Opera Mini|Mobile/i.test(navigator.userAgent);
+    return narrow || viewport <= 760 || (coarse && viewport <= 1024) || (uaMobile && viewport <= 900) ? "mobile" : "desktop";
+  }
+
+  function chooseLanguage() {
+    if (forcedLang === "zh" || forcedLang === "en") return forcedLang;
+    try {
+      var saved = window.localStorage.getItem("achivily-language");
+      if (saved === "zh" || saved === "en") return saved;
+    } catch (error) {}
+    var languages = navigator.languages || [navigator.language || ""];
+    return languages.some(function (language) { return /^zh/i.test(language); }) ? "zh" : "en";
+  }
+
+  function pageFile(device, language) {
+    return language === "zh" ? device + "-zh.html" : device + ".html";
+  }
+
+  function targetUrl(device, language) {
+    var file = pageFile(device, language);
+    return file + window.location.search + window.location.hash;
+  }
+
+  var device = forcedDevice === "mobile" || forcedDevice === "desktop" ? forcedDevice : chooseDevice();
+  var language = currentLang || chooseLanguage();
+  if (forcedLang === "zh" || forcedLang === "en") language = forcedLang;
+  document.documentElement.dataset.device = device;
+  document.documentElement.dataset.language = language;
+  if (currentLang) {
+    try { window.localStorage.setItem("achivily-language", currentLang); } catch (error) {}
+  }
+
+  if (!current) {
+    window.location.replace(targetUrl(device, language));
+    return;
+  }
+
+  if ((current !== device || currentLang !== language) && !path.endsWith("/" + pageFile(device, language))) {
+    window.location.replace(targetUrl(device, language));
+  }
+})();
+</script>
+    <link rel="stylesheet" href="styles.css?v=admin-1787033821713">
+  </head>
+  <body data-device-page="desktop" data-language="zh">
+    <main class="site-shell">
+      <header class="topbar" aria-label="Primary">
+        <a class="wordmark" href="desktop-zh.html#top" aria-label="Achivily home">Achivily</a>
+        <div class="topbar-controls">
+          <nav class="nav-links" aria-label="Site sections">
+            <a href="desktop-zh.html#works">作品</a>
+            <a href="desktop-zh.html#atelier">画室</a>
+            <a href="desktop-zh.html#contact">联系</a>
+          </nav>
+          <div class="language-switch" aria-label="语言">
+            <a class="" href="desktop.html" lang="en">EN</a>
+            <a class="is-active" href="desktop-zh.html" lang="zh-CN">中文</a>
+          </div>
+        </div>
+      </header>
+
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">单色终端画室</p>
+          <h1 id="hero-title"><span class="brand-line">Achivily</span><span>线稿档案.</span></h1>
+          <p class="intro">一个放置角色速写、几何留白与手工黑白线条的个人作品页，像一间安静的小型版画档案室。</p>
+          <div class="hero-ledger" aria-label="Site details">
+            <span>6 件作品入柜</span><span>线条 / 网点 / 剪影</span><span>Chinese Edition</span>
+          </div>
+        </div>
+
+        <div class="hero-salon" aria-label="Featured Achivily artworks">
+          <div class="cabinet-lines" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+          
+          <button class="salon-piece salon-piece-1" type="button" data-work-id="01" aria-label="查看 饮品习作 细节">
+            <img src="works/drink-study.png" alt="一张手持饮品角色的黑白线稿">
+            <span class="salon-caption"><span>01</span>饮品习作</span>
+          </button>
+          <button class="salon-piece salon-piece-2" type="button" data-work-id="02" aria-label="查看 小A 细节">
+            <img src="works/little-a.png" alt="名为小A的坐姿角色黑白线稿">
+            <span class="salon-caption"><span>02</span>小A</span>
+          </button>
+          <button class="salon-piece salon-piece-3" type="button" data-work-id="03" aria-label="查看 肖像格 细节">
+            <img src="works/portrait-grid.jpg" alt="由多张角色头像速写组成的黑白网格">
+            <span class="salon-caption"><span>03</span>肖像格</span>
+          </button>
+          <span class="cursor-mark hero-cursor" aria-hidden="true"></span>
+        </div>
+      </section>
+
+      <section class="works-band" id="works" aria-labelledby="works-title">
+        <div class="section-heading">
+          <p class="eyebrow">作品导航</p>
+          <h2 id="works-title">六个展示窗，收纳 Achivily 目前的黑白线稿。</h2>
+        </div>
+
+        <div class="art-grid">
+          
+          <article class="art-window">
+            <div class="window-meta"><span>01</span><span>2025.06</span></div>
+            
+    <button class="image-chamber" type="button" data-work-id="01" aria-label="查看 饮品习作 细节">
+      <img src="works/drink-study.png" alt="一张手持饮品角色的黑白线稿">
+      <span class="measure-line measure-top" aria-hidden="true"></span>
+      <span class="measure-line measure-side" aria-hidden="true"></span>
+    </button>
+            <div class="window-copy">
+              <p class="tile-companion">肖像 / 线条 / 剪影</p>
+              <h3>饮品习作</h3>
+              <p>安静的半身肖像，衣褶利落，表情克制，大片黑色身体形状压住画面重心。</p>
+            </div>
+          </article>
+          <article class="art-window">
+            <div class="window-meta"><span>02</span><span>2025.05</span></div>
+            
+    <button class="image-chamber" type="button" data-work-id="02" aria-label="查看 小A 细节">
+      <img src="works/little-a.png" alt="名为小A的坐姿角色黑白线稿">
+      <span class="measure-line measure-top" aria-hidden="true"></span>
+      <span class="measure-line measure-side" aria-hidden="true"></span>
+    </button>
+            <div class="window-copy">
+              <p class="tile-companion">姿态 / 视线 / 留白</p>
+              <h3>小A</h3>
+              <p>低位姿态练习，表情、手部和大片留白共同撑起画面的张力。</p>
+            </div>
+          </article>
+          <article class="art-window">
+            <div class="window-meta"><span>03</span><span>2026.04</span></div>
+            
+    <button class="image-chamber" type="button" data-work-id="03" aria-label="查看 肖像格 细节">
+      <img src="works/portrait-grid.jpg" alt="由多张角色头像速写组成的黑白网格">
+      <span class="measure-line measure-top" aria-hidden="true"></span>
+      <span class="measure-line measure-side" aria-hidden="true"></span>
+    </button>
+            <div class="window-copy">
+              <p class="tile-companion">档案 / 面孔 / 接触印样</p>
+              <h3>肖像格</h3>
+              <p>像接触印样一样铺开的头像格，记录角、耳朵、发型与快速表情笔记。</p>
+            </div>
+          </article>
+          <article class="art-window">
+            <div class="window-meta"><span>04</span><span>2026.04</span></div>
+            
+    <button class="image-chamber" type="button" data-work-id="04" aria-label="查看 双人构图 细节">
+      <img src="works/dual-figures.jpg" alt="两位站立角色的黑白草图">
+      <span class="measure-line measure-top" aria-hidden="true"></span>
+      <span class="measure-line measure-side" aria-hidden="true"></span>
+    </button>
+            <div class="window-copy">
+              <p class="tile-companion">双人 / 对照 / 结构</p>
+              <h3>双人构图</h3>
+              <p>两个人物横向展开，一侧保留结构草稿，一侧由黑色服装形成清晰对照。</p>
+            </div>
+          </article>
+          <article class="art-window">
+            <div class="window-meta"><span>05</span><span>2025.12</span></div>
+            
+    <button class="image-chamber" type="button" data-work-id="05" aria-label="查看 Airon 生日贺图 细节">
+      <img src="works/birthday-airon.jpg" alt="一张角角色手持杯子的黑白生日贺图">
+      <span class="measure-line measure-top" aria-hidden="true"></span>
+      <span class="measure-line measure-side" aria-hidden="true"></span>
+    </button>
+            <div class="window-copy">
+              <p class="tile-companion">礼物 / 网点 / 角色</p>
+              <h3>Airon 生日贺图</h3>
+              <p>带有庆祝感的贺图，网点底纹、手写字和浓重黑色点缀让画面更像印刷品。</p>
+            </div>
+          </article>
+          <article class="art-window">
+            <div class="window-meta"><span>06</span><span>2025.08</span></div>
+            
+    <button class="image-chamber" type="button" data-work-id="06" aria-label="查看 群像习作 细节">
+      <img src="works/group-study.jpg" alt="多位角色组成的黑白群像插画">
+      <span class="measure-line measure-top" aria-hidden="true"></span>
+      <span class="measure-line measure-side" aria-hidden="true"></span>
+    </button>
+            <div class="window-copy">
+              <p class="tile-companion">群像 / 阵容 / 单色</p>
+              <h3>群像习作</h3>
+              <p>紧凑的群像练习，不同角色类型并置，底部大块黑色稳住整体构图。</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="statement-band" id="atelier" aria-labelledby="statement-title">
+        <p class="eyebrow">画室笔记</p>
+        <div>
+          <h2 id="statement-title">给面孔、姿势与未完成精度留出的一间安静房间。</h2>
+          <p>这个网站把 Achivily 自己的黑白绘画当作主要藏品：细线框、测量式边界、温暖纸色、网点颗粒和克制的终端痕迹，让每张草图都像一件被归档的手工印刷物。</p>
+        </div>
+      </section>
+
+      <footer class="footer" id="contact">
+        <span>联系方式会在之后补上。</span>
+        <span>Achivily / 黑白线稿作品</span>
+      </footer>
+    </main>
+
+    <div class="lightbox" hidden>
+      <section class="lightbox-panel" role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
+        <div class="lightbox-meta"><span data-lightbox-id></span><span data-lightbox-date></span></div>
+        <div class="lightbox-image-wrap"><img data-lightbox-image alt=""></div>
+        <div class="lightbox-copy">
+          <p class="tile-companion" data-lightbox-mood></p>
+          <h2 id="lightbox-title" data-lightbox-title></h2>
+          <p data-lightbox-note></p>
+        </div>
+      </section>
+    </div>
+    <script>window.ACHIVILY_WORKS = [{"id":"01","title":"饮品习作","titleZh":"饮品习作","date":"2025.06","image":"works/drink-study.png","alt":"一张手持饮品角色的黑白线稿","altZh":"一张手持饮品角色的黑白线稿","note":"安静的半身肖像，衣褶利落，表情克制，大片黑色身体形状压住画面重心。","noteZh":"安静的半身肖像，衣褶利落，表情克制，大片黑色身体形状压住画面重心。","mood":"肖像 / 线条 / 剪影","moodZh":"肖像 / 线条 / 剪影"},{"id":"02","title":"小A","titleZh":"小A","date":"2025.05","image":"works/little-a.png","alt":"名为小A的坐姿角色黑白线稿","altZh":"名为小A的坐姿角色黑白线稿","note":"低位姿态练习，表情、手部和大片留白共同撑起画面的张力。","noteZh":"低位姿态练习，表情、手部和大片留白共同撑起画面的张力。","mood":"姿态 / 视线 / 留白","moodZh":"姿态 / 视线 / 留白"},{"id":"03","title":"肖像格","titleZh":"肖像格","date":"2026.04","image":"works/portrait-grid.jpg","alt":"由多张角色头像速写组成的黑白网格","altZh":"由多张角色头像速写组成的黑白网格","note":"像接触印样一样铺开的头像格，记录角、耳朵、发型与快速表情笔记。","noteZh":"像接触印样一样铺开的头像格，记录角、耳朵、发型与快速表情笔记。","mood":"档案 / 面孔 / 接触印样","moodZh":"档案 / 面孔 / 接触印样"},{"id":"04","title":"双人构图","titleZh":"双人构图","date":"2026.04","image":"works/dual-figures.jpg","alt":"两位站立角色的黑白草图","altZh":"两位站立角色的黑白草图","note":"两个人物横向展开，一侧保留结构草稿，一侧由黑色服装形成清晰对照。","noteZh":"两个人物横向展开，一侧保留结构草稿，一侧由黑色服装形成清晰对照。","mood":"双人 / 对照 / 结构","moodZh":"双人 / 对照 / 结构"},{"id":"05","title":"Airon 生日贺图","titleZh":"Airon 生日贺图","date":"2025.12","image":"works/birthday-airon.jpg","alt":"一张角角色手持杯子的黑白生日贺图","altZh":"一张角角色手持杯子的黑白生日贺图","note":"带有庆祝感的贺图，网点底纹、手写字和浓重黑色点缀让画面更像印刷品。","noteZh":"带有庆祝感的贺图，网点底纹、手写字和浓重黑色点缀让画面更像印刷品。","mood":"礼物 / 网点 / 角色","moodZh":"礼物 / 网点 / 角色"},{"id":"06","title":"群像习作","titleZh":"群像习作","date":"2025.08","image":"works/group-study.jpg","alt":"多位角色组成的黑白群像插画","altZh":"多位角色组成的黑白群像插画","note":"紧凑的群像练习，不同角色类型并置，底部大块黑色稳住整体构图。","noteZh":"紧凑的群像练习，不同角色类型并置，底部大块黑色稳住整体构图。","mood":"群像 / 阵容 / 单色","moodZh":"群像 / 阵容 / 单色"}];</script>
+    <script src="script.js?v=admin-1787033821713"></script>
+  </body>
+</html>
