@@ -154,6 +154,11 @@ p {
   overflow-wrap: anywhere;
 }
 
+h1 {
+  overflow-wrap: normal;
+  word-break: keep-all;
+}
+
 h1,
 h2,
 h3 {
@@ -163,9 +168,13 @@ h3 {
 }
 
 h1 {
-  max-width: 780px;
-  font-size: clamp(3.2rem, 9vw, 8.8rem);
-  line-height: 0.9;
+  max-width: 640px;
+  font-size: clamp(3.1rem, 7.4vw, 7.4rem);
+  line-height: 0.92;
+}
+
+h1 span {
+  display: block;
 }
 
 .intro {
@@ -294,8 +303,7 @@ h1 {
 }
 
 .salon-piece:hover {
-  transform: translateY(-7px) rotate(-0.55deg) scale(1.015);
-  filter: contrast(1.04);
+  transform: translateY(-7px) rotate(-0.55deg) scale(1.018);
 }
 
 .salon-piece img {
@@ -303,12 +311,8 @@ h1 {
   height: 100%;
   filter: grayscale(1) contrast(1.06);
   object-fit: cover;
-  transform: scale(1.01);
-  transition: transform 700ms ease;
-}
-
-.salon-piece:hover img {
-  transform: scale(1.055);
+  transform: translateZ(0);
+  transition: none;
 }
 
 .salon-caption {
@@ -475,7 +479,7 @@ h1 {
 .image-chamber:hover {
   background-color: rgba(255, 253, 247, 0.8);
   border-color: rgba(17, 16, 14, 0.78);
-  transform: translateY(-5px) scale(1.01);
+  transform: translateY(-5px) scale(1.018);
 }
 
 .image-chamber:focus-visible,
@@ -492,13 +496,8 @@ h1 {
   filter: grayscale(1) contrast(1.08);
   mix-blend-mode: multiply;
   object-fit: contain;
-  transform: scale(1);
-  transition: transform 520ms ease, filter 520ms ease;
-}
-
-.image-chamber:hover img {
-  filter: grayscale(1) contrast(1.16);
-  transform: scale(1.035);
+  transform: translateZ(0);
+  transition: none;
 }
 
 .measure-line {
@@ -816,7 +815,8 @@ h1 {
   }
 
   h1 {
-    font-size: clamp(3rem, 16vw, 5.4rem);
+    max-width: 100%;
+    font-size: clamp(3rem, 15vw, 5.2rem);
   }
 
   .hero {
