@@ -19,11 +19,13 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
   min-height: 100vh;
   margin: 0;
+  overflow-x: clip;
   background:
     radial-gradient(circle at 12% 12%, rgba(143, 167, 161, 0.28), transparent 25rem),
     radial-gradient(circle at 88% 70%, rgba(152, 136, 151, 0.16), transparent 26rem),
@@ -70,8 +72,10 @@ img {
 
 .site-shell {
   width: min(100%, 1540px);
+  max-width: 100%;
   margin: 0 auto;
   padding: 22px clamp(16px, 3vw, 46px) 38px;
+  overflow-x: clip;
 }
 
 .topbar {
@@ -83,6 +87,7 @@ img {
   justify-content: space-between;
   gap: 24px;
   min-height: 64px;
+  min-width: 0;
   border-bottom: 1px solid var(--rule);
   background: color-mix(in srgb, var(--paper) 88%, transparent);
   backdrop-filter: blur(16px);
@@ -97,6 +102,9 @@ img {
 .nav-links {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  min-width: 0;
   gap: clamp(14px, 3vw, 36px);
   color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
@@ -135,6 +143,7 @@ img {
 }
 
 .hero-copy {
+  min-width: 0;
   max-width: 690px;
   animation: fade-up 720ms ease both;
 }
@@ -196,6 +205,7 @@ h1 span {
 }
 
 .hero-ledger span {
+  max-width: 100%;
   padding: 8px 10px;
   border: 1px solid var(--rule);
   background: rgba(255, 253, 247, 0.64);
@@ -213,6 +223,7 @@ h1 span {
 .hero-salon {
   position: relative;
   display: grid;
+  min-width: 0;
   grid-template-columns: 0.75fr 1fr;
   grid-template-rows: 0.82fr 0.62fr;
   gap: clamp(10px, 1.4vw, 18px);
@@ -800,39 +811,96 @@ h1 span {
 
 @media (max-width: 720px) {
   .site-shell {
-    padding-inline: 16px;
+    padding: 14px 14px 28px;
   }
 
   .topbar {
-    align-items: flex-start;
-    min-height: 74px;
-    padding-top: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px 18px;
+    min-height: 58px;
+    padding-top: 0;
+    padding-bottom: 10px;
   }
 
   .nav-links {
-    gap: 12px;
-    font-size: 0.68rem;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 14px;
+    font-size: 0.64rem;
   }
 
   h1 {
     max-width: 100%;
-    font-size: clamp(3rem, 15vw, 5.2rem);
+    font-size: clamp(3.05rem, 14.5vw, 4.85rem);
+    line-height: 0.9;
   }
 
   .hero {
-    gap: 30px;
-    padding-top: 42px;
+    gap: 24px;
+    padding: 28px 0 44px;
+  }
+
+  .hero-copy {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .intro {
+    max-width: 100%;
+    margin-top: 22px;
+    font-size: 0.98rem;
+    line-height: 1.62;
+  }
+
+  .hero-ledger {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .hero-ledger span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 31px;
+    padding: 7px 8px;
+    font-size: 0.64rem;
+    text-align: center;
   }
 
   .hero-salon {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(3, minmax(220px, 1fr));
-    min-height: 860px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: minmax(260px, 1.12fr) minmax(160px, 0.78fr);
+    gap: 9px;
+    min-height: clamp(430px, 122vw, 560px);
+    padding: 10px;
     box-shadow: inset 0 0 0 8px rgba(245, 241, 233, 0.74);
   }
 
   .salon-piece-1 {
-    grid-row: auto;
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .salon-piece-2,
+  .salon-piece-3 {
+    grid-row: 2;
+  }
+
+  .salon-caption {
+    right: 7px;
+    bottom: 7px;
+    left: 7px;
+    flex-wrap: wrap;
+    padding: 6px 7px;
+    font-size: 0.58rem;
+  }
+
+  .salon-caption span {
+    min-width: 0;
   }
 
   .section-heading,
@@ -840,12 +908,23 @@ h1 span {
     grid-template-columns: 1fr;
   }
 
+  .section-heading h2,
+  .statement-band h2 {
+    font-size: clamp(2.25rem, 12vw, 4rem);
+  }
+
   .art-grid {
     grid-template-columns: 1fr;
   }
 
   .art-window {
-    min-height: 560px;
+    min-height: auto;
+    padding: 14px;
+  }
+
+  .image-chamber {
+    min-height: 330px;
+    margin: 18px 0 22px;
   }
 
   .image-chamber img {
@@ -863,15 +942,72 @@ h1 span {
   .lightbox-panel {
     grid-template-columns: 1fr;
     max-height: 94vh;
+    padding: 10px;
   }
 
   .lightbox-image-wrap img {
-    max-height: 62vh;
+    max-height: 64vh;
+    padding: 10px;
   }
 
   .lightbox-copy {
     border-top: 1px solid var(--rule);
     border-left: 0;
+  }
+}
+
+@media (max-width: 540px) {
+  .hero-copy,
+  .hero-salon,
+  .section-heading,
+  .art-grid,
+  .statement-band,
+  .footer {
+    width: min(100%, 362px);
+    margin-right: auto;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 430px) {
+  .wordmark {
+    font-size: 1.55rem;
+  }
+
+  .nav-links {
+    gap: 12px;
+  }
+
+  .hero-ledger {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-ledger span {
+    text-align: center;
+  }
+
+  .hero-salon {
+    min-height: clamp(400px, 118vw, 500px);
+  }
+
+  .image-chamber {
+    min-height: 300px;
+  }
+
+  .window-copy h3 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (hover: none) {
+  .salon-piece:hover,
+  .image-chamber:hover {
+    transform: none;
+  }
+
+  .salon-piece:active,
+  .image-chamber:active {
+    transform: scale(0.985);
   }
 }
 
