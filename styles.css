@@ -50,6 +50,7 @@ body::before {
     linear-gradient(90deg, rgba(17, 16, 14, 0.035) 1px, transparent 1px);
   background-size: 8px 8px, 44px 44px, 44px 44px;
   mask-image: linear-gradient(to bottom, black, transparent 82%);
+  animation: paper-drift 22s linear infinite;
 }
 
 a {
@@ -135,6 +136,7 @@ img {
 
 .hero-copy {
   max-width: 690px;
+  animation: fade-up 720ms ease both;
 }
 
 .eyebrow {
@@ -188,6 +190,15 @@ h1 {
   padding: 8px 10px;
   border: 1px solid var(--rule);
   background: rgba(255, 253, 247, 0.64);
+  animation: ledger-in 680ms ease both;
+}
+
+.hero-ledger span:nth-child(2) {
+  animation-delay: 120ms;
+}
+
+.hero-ledger span:nth-child(3) {
+  animation-delay: 240ms;
 }
 
 .hero-salon {
@@ -205,6 +216,7 @@ h1 {
   background-size: 22px 22px, auto;
   box-shadow: inset 0 0 0 12px rgba(245, 241, 233, 0.74);
   overflow: hidden;
+  animation: salon-float 6.8s ease-in-out infinite alternate;
 }
 
 .hero-salon::after {
@@ -216,6 +228,7 @@ h1 {
   background-image: radial-gradient(rgba(17, 16, 14, 0.55) 0.6px, transparent 0.6px);
   background-size: 7px 7px;
   mix-blend-mode: multiply;
+  animation: grain-walk 9s steps(6) infinite;
 }
 
 .cabinet-lines {
@@ -234,6 +247,8 @@ h1 {
   left: 5%;
   width: 90%;
   height: 1px;
+  transform-origin: left;
+  animation: line-draw 900ms ease both;
 }
 
 .cabinet-lines span:nth-child(2) {
@@ -241,6 +256,8 @@ h1 {
   bottom: 9%;
   width: 1px;
   height: 78%;
+  transform-origin: top;
+  animation: line-draw-y 980ms ease 120ms both;
 }
 
 .cabinet-lines span:nth-child(3) {
@@ -248,6 +265,8 @@ h1 {
   left: 47%;
   width: 1px;
   height: 86%;
+  transform-origin: top;
+  animation: line-draw-y 980ms ease 220ms both;
 }
 
 .cabinet-lines span:nth-child(4) {
@@ -255,6 +274,8 @@ h1 {
   bottom: 13%;
   width: 82%;
   height: 1px;
+  transform-origin: left;
+  animation: line-draw 900ms ease 320ms both;
 }
 
 .salon-piece {
@@ -268,11 +289,12 @@ h1 {
   cursor: zoom-in;
   font: inherit;
   overflow: hidden;
-  transition: transform 220ms ease, filter 220ms ease;
+  animation: salon-piece-in 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  transition: transform 260ms ease, filter 260ms ease;
 }
 
 .salon-piece:hover {
-  transform: translateY(-4px) rotate(-0.35deg);
+  transform: translateY(-7px) rotate(-0.55deg) scale(1.015);
   filter: contrast(1.04);
 }
 
@@ -281,6 +303,12 @@ h1 {
   height: 100%;
   filter: grayscale(1) contrast(1.06);
   object-fit: cover;
+  transform: scale(1.01);
+  transition: transform 700ms ease;
+}
+
+.salon-piece:hover img {
+  transform: scale(1.055);
 }
 
 .salon-caption {
@@ -306,10 +334,12 @@ h1 {
 
 .salon-piece-2 {
   min-height: 0;
+  animation-delay: 120ms;
 }
 
 .salon-piece-3 {
   min-height: 0;
+  animation-delay: 240ms;
 }
 
 .cursor-mark {
@@ -364,6 +394,7 @@ h1 {
     linear-gradient(145deg, rgba(143, 167, 161, 0.14), transparent 42%),
     var(--panel);
   overflow: hidden;
+  animation: window-rise 760ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 .art-window:nth-child(2n) {
@@ -378,6 +409,26 @@ h1 {
     var(--panel);
 }
 
+.art-window:nth-child(2) {
+  animation-delay: 80ms;
+}
+
+.art-window:nth-child(3) {
+  animation-delay: 160ms;
+}
+
+.art-window:nth-child(4) {
+  animation-delay: 240ms;
+}
+
+.art-window:nth-child(5) {
+  animation-delay: 320ms;
+}
+
+.art-window:nth-child(6) {
+  animation-delay: 400ms;
+}
+
 .art-window::after {
   position: absolute;
   inset: 0;
@@ -387,6 +438,7 @@ h1 {
   background-image: radial-gradient(rgba(17, 16, 14, 0.58) 0.55px, transparent 0.55px);
   background-size: 6px 6px;
   mix-blend-mode: multiply;
+  animation: grain-walk 8s steps(6) infinite;
 }
 
 .window-meta {
@@ -417,12 +469,13 @@ h1 {
   cursor: zoom-in;
   font: inherit;
   overflow: hidden;
-  transition: background-color 180ms ease, transform 180ms ease;
+  transition: background-color 220ms ease, transform 260ms ease, border-color 220ms ease;
 }
 
 .image-chamber:hover {
   background-color: rgba(255, 253, 247, 0.8);
-  transform: translateY(-3px);
+  border-color: rgba(17, 16, 14, 0.78);
+  transform: translateY(-5px) scale(1.01);
 }
 
 .image-chamber:focus-visible,
@@ -439,6 +492,13 @@ h1 {
   filter: grayscale(1) contrast(1.08);
   mix-blend-mode: multiply;
   object-fit: contain;
+  transform: scale(1);
+  transition: transform 520ms ease, filter 520ms ease;
+}
+
+.image-chamber:hover img {
+  filter: grayscale(1) contrast(1.16);
+  transform: scale(1.035);
 }
 
 .measure-line {
@@ -451,6 +511,8 @@ h1 {
   left: 12px;
   width: 42%;
   height: 1px;
+  transform-origin: left;
+  animation: line-draw 900ms ease both;
 }
 
 .measure-side {
@@ -458,6 +520,8 @@ h1 {
   right: 12px;
   width: 1px;
   height: 40%;
+  transform-origin: top;
+  animation: line-draw-y 900ms ease 120ms both;
 }
 
 .window-copy {
@@ -609,6 +673,104 @@ h1 {
 @keyframes blink {
   50% {
     opacity: 0;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ledger-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes salon-float {
+  from {
+    transform: translateY(0) rotate(-0.08deg);
+  }
+
+  to {
+    transform: translateY(-9px) rotate(0.18deg);
+  }
+}
+
+@keyframes salon-piece-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes window-rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes line-draw {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes line-draw-y {
+  from {
+    transform: scaleY(0);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes paper-drift {
+  from {
+    background-position: 0 0, 0 0, 0 0;
+  }
+
+  to {
+    background-position: 48px 32px, 44px 44px, -44px 44px;
+  }
+}
+
+@keyframes grain-walk {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 21px 14px;
   }
 }
 
